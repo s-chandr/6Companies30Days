@@ -1,0 +1,47 @@
+class Solution {
+    public int longestMountain(int[] arr) {
+        int increasing = 1;
+        boolean incflag = false;
+        boolean decflag = false;
+        int decreasing = 1 ;
+        int result = Integer.MIN_VALUE ;
+        
+        for( int i = 0 ; i < arr.length-1 ; i ++ ){
+            
+            if( arr[i]<arr[i+1])
+            {   incflag = true;
+                decflag = false;
+                decreasing = 1 ;
+                increasing++;  
+            } 
+            else if ( arr[i]>arr[i+1])
+            {   
+                if(incflag)
+                {decreasing = increasing;
+                increasing = 1 ; 
+                    ++decreasing;
+                     result = Math.max(result,decreasing);
+                    incflag = false;
+                    decflag = true;    
+                }
+                else if (decflag)
+                {   //increasing = 1 ; 
+                    ++decreasing;
+                     result = Math.max(result,decreasing);
+                }
+                
+                         
+            }
+            else{
+                  increasing = 1;
+                 incflag = false;
+                 decflag = false;
+                 decreasing = 1 ;
+            }
+          //System.out.println(i + " "+result);
+           
+        }
+        return result ==Integer.MIN_VALUE ? 0 : result  ;
+        
+    }
+}
