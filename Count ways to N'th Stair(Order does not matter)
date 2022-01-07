@@ -1,0 +1,11 @@
+//Mathematical approach 
+class Solution
+{
+    //Function to count number of ways to reach the nth stair 
+    //when order does not matter.
+    long countWays(int m)
+    {
+        return  1 + (long)Math.floor(m/2) ; 
+        // your code here
+    }    
+}
