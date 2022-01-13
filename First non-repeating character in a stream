@@ -1,0 +1,46 @@
+class Solution
+{
+   
+    public String FirstNonRepeating(String A)
+    {   
+        Boolean arr[] = new Boolean[26];
+        for(int i = 0 ; i < 26 ; i++){
+            arr[i] = false;
+        }
+        ArrayList <Character>  list = new ArrayList<>();
+        StringBuilder ans = new StringBuilder();
+        
+        for(int i = 0 ; i <A.length(); i ++){
+            if(i==0){
+                ans.append(A.charAt(0));
+                list.add(A.charAt(0));
+            
+                continue;
+            }
+            if(arr[A.charAt(i)-'a'] ){
+                if(list.size()==0)
+                    ans.append('#');
+                else
+                    ans.append(list.get(0).toString());
+                continue;
+            }
+            
+            if(list.contains(A.charAt(i)))
+                {   
+                    list.remove(list.indexOf(A.charAt(i)));
+                    arr[A.charAt(i)-'a'] = true;
+                }
+            else 
+                {
+                    list.add(A.charAt(i));
+                }
+            if(list.size()==0)
+                    ans.append('#');
+            else
+                    ans.append(list.get(0).toString());
+            
+        }
+        return ans.toString();
+        // code here
+    }
+}
