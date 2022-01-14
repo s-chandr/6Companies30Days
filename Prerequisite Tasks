@@ -1,0 +1,84 @@
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+	public static void main(String args[]) throws IOException
+	{
+	    Scanner sc = new Scanner(System.in);
+	    int t = sc.nextInt();
+		while(t>0)
+		{
+		    int N = sc.nextInt();
+		    int P = sc.nextInt();
+		    int prerequisites[][] = new int[P][2];
+		    for(int i=0;i<P;i++)
+		    {
+		        for(int j=0;j<2;j++)
+		        {
+		            prerequisites[i][j] = sc.nextInt();
+		        }
+		    }
+			Solution ob = new Solution();
+			if(ob.isPossible(N,prerequisites))
+			{
+			    System.out.println("Yes");
+			}
+			else{
+			    System.out.println("No");
+			}
+			t--;
+		}
+	}
+	
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution {
+    public boolean dfsrec( ArrayList<ArrayList<Integer>> list , int start , boolean visited[] , boolean recstack[] )
+    {
+        visited[start] = true;
+        recstack[start] = true ;
+        for(int i : list.get(start)){
+            if(visited[i] == false && dfsrec(list,i, visited , recstack ))
+                return true ;
+            if(recstack[i] )
+                return true;
+        }
+        recstack[start] = false;
+        return false;
+        
+    }
+    public boolean isPossible(int N, int[][] prerequisites)
+    {
+         ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer> >(N);
+         for( int i = 0 ; i < N ; i ++){
+             list.add(new ArrayList<Integer>());
+             
+         }
+         for( int i = 0 ; i < prerequisites.length ; i ++){
+             list.get(prerequisites[i][1]).add(prerequisites[i][0]);
+             
+         }
+        boolean[] visited = new boolean[N];
+        boolean[] recstack = new boolean[N];
+        
+        for( int i = 0 ; i < N ; i ++)
+        {
+            if(visited[i]==false){
+                if(dfsrec(list,i, visited , recstack ) )
+                    return false;
+            }
+           // System.out.println(list.get(i));
+        }
+        
+        return true;
+        // Your Code goes here
+    }
+    
+}
